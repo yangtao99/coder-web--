@@ -27,6 +27,10 @@ public class selectForConditionTest {
         List<User> list =mapper.selectForCondition("金林涛","0");
 
         System.out.println(list);
+        System.out.println(list);
+        System.out.println(list);
+        System.out.println(list);
+        System.out.println(list);
 
 
     }
