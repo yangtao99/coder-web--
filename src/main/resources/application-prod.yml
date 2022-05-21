@@ -1,0 +1,9 @@
+spring:
+    datasource:
+      name: jlt_db
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://106.13.200.151:3306/jlt_db
+      username: jlt_db
+      password: jin@12345679
+    session:
+      timeout: 86400
