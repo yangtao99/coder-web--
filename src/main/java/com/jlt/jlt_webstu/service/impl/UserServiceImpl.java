@@ -39,19 +39,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public long userRegister(String userAccount, String userPassword, String checkPassword,String username) {
 
 
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             return -1;
         }
-        if (userAccount.length() < 4) {
-            return -1;
-        }
+//        if (userAccount.length() < 4) {
+//            return -1;
+//        }
         if (userPassword.length() < 8 || checkPassword.length() < 8) {
             return -1;
         }
-
 
         String validPattern = "\\pP|\\pS|\\s+";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
@@ -74,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(handledPassword);
-
+        user.setUsername(username);
         boolean saveResult = this.save(user);
         if (saveResult) {
             return user.getId();
@@ -90,9 +89,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             return null;
         }
-        if (userAccount.length() < 4) {
-            return null;
-        }
+//        if (userAccount.length() < 4) {
+//            return null;
+//        }
         if (userPassword.length() < 8 ) {
             return null;
         }

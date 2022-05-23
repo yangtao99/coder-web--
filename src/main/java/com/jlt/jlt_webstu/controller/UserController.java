@@ -1,22 +1,16 @@
 package com.jlt.jlt_webstu.controller;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jlt.jlt_webstu.mapper.UserMapper;
 import com.jlt.jlt_webstu.model.domain.User;
 import com.jlt.jlt_webstu.model.domain.request.UserLoginRequest;
 import com.jlt.jlt_webstu.model.domain.request.UserRegisterRequest;
 import com.jlt.jlt_webstu.model.domain.request.UserSearchRequest;
 import com.jlt.jlt_webstu.service.UserService;
-import com.jlt.jlt_webstu.service.impl.UserServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static com.jlt.jlt_webstu.contant.UserConstant.ADMIN_ROLE;
 import static com.jlt.jlt_webstu.contant.UserConstant.USER_LOGIN_STATE;
 
@@ -38,10 +32,11 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+        String username = userRegisterRequest.getUsername();
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword,username)) {
             return null;
         }
-        return userService.userRegister(userAccount, userPassword, checkPassword);
+        return userService.userRegister(userAccount, userPassword, checkPassword,username);
     }
 
     @GetMapping("/current")
@@ -84,11 +79,22 @@ public class UserController {
 //        }
 //        username = request.getParameter("username");
         String username = userSearchRequest.getUsername();
+        String gender = userSearchRequest.getGender();
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(username)) {
+//        if (!StringUtils.isAnyBlank(username,gender)) {
+//            int int_gender = Integer.parseInt(gender);
+//            queryWrapper.like("username", username)
+//                    .eq("gender",int_gender);
+//        }
+        if (StringUtils.isNotBlank(username)){
             queryWrapper.like("username", username);
         }
+        if (StringUtils.isNotBlank(gender)){
+            int int_gender = Integer.parseInt(gender);
+            queryWrapper.eq("gender",int_gender);
+        }
+
 
         List<User> userList = userService.list(queryWrapper);
         return userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());

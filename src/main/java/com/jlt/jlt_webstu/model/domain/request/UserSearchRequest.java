@@ -17,5 +17,7 @@ public class UserSearchRequest implements Serializable {
 
     private String username;
 
+    private String gender;
+
 
 }

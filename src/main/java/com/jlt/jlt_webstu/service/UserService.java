@@ -17,7 +17,7 @@ public interface UserService extends IService<User> {
      * @param checkPassword 第二次输入密码
      * @return userId
      */
-    long userRegister(String userAccount,String userPassword,String checkPassword);
+    long userRegister(String userAccount,String userPassword,String checkPassword,String username);
 
     /**
      * @param userAccount 账号
