@@ -1,4 +1,5 @@
 package com.jlt.jlt_webstu.controller;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jlt.jlt_webstu.model.domain.User;
 import com.jlt.jlt_webstu.model.domain.request.UserLoginRequest;
@@ -7,10 +8,12 @@ import com.jlt.jlt_webstu.model.domain.request.UserSearchRequest;
 import com.jlt.jlt_webstu.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import static com.jlt.jlt_webstu.contant.UserConstant.ADMIN_ROLE;
 import static com.jlt.jlt_webstu.contant.UserConstant.USER_LOGIN_STATE;
 
@@ -138,3 +141,4 @@ public class UserController {
     }
 
 }
+

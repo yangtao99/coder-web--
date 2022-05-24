@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jlt.jlt_webstu.mapper.AuctionMapper">
+
+    <resultMap id="BaseResultMap" type="com.jlt.jlt_webstu.model.domain.Auction">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="auctionName" column="auctionName" jdbcType="VARCHAR"/>
+            <result property="auctionImageUrl" column="auctionImageUrl" jdbcType="VARCHAR"/>
+            <result property="auctionMesUrl" column="auctionMesUrl" jdbcType="VARCHAR"/>
+            <result property="auctionMoney" column="auctionMoney" jdbcType="VARCHAR"/>
+            <result property="auctionAddMoney" column="auctionAddMoney" jdbcType="VARCHAR"/>
+            <result property="auctionDescription" column="auctionDescription" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,auctionName,auctionImageUrl,
+        auctionMesUrl,auctionMoney,auctionAddMoney,
+        auctionDescription
+    </sql>
+</mapper>
