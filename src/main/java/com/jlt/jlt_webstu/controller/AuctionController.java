@@ -1,10 +1,10 @@
 package com.jlt.jlt_webstu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jlt.jlt_webstu.mapper.AuctionMapper;
 import com.jlt.jlt_webstu.model.domain.Auction;
 import com.jlt.jlt_webstu.model.domain.request.AddAuctionRequest;
 import com.jlt.jlt_webstu.service.AuctionService;
+import com.jlt.jlt_webstu.utils.HandleAuctionList;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +18,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/auction")
 public class AuctionController {
+
+    String searchValue = "";
 
     @Resource
     private AuctionService auctionService;
@@ -36,6 +38,7 @@ public class AuctionController {
         if (StringUtils.isAnyBlank(auctionAddMoney,auctionName,auctionDescription,auctionMesUrl,auctionMoney,auctionImageUrl)){
             return null;
         }
+        this.searchValue="";
         return auctionService.addAuction( auctionName,  auctionImageUrl,  auctionMesUrl,  auctionDescription,  auctionMoney,  auctionAddMoney);
     }
 
@@ -49,10 +52,34 @@ public class AuctionController {
 
         List<Auction> list = auctionService.list(auctionQueryWrapper);
 
+        list = auctionService.searchAuction(list,searchValue);
+
         Collections.reverse(list);
 
-        return list;
+        List handleList = HandleAuctionList.repeatListWayOne(list);
+
+        return handleList;
     }
 
+    @PostMapping("/searchAuction")
+    public List<Auction> searchAuction(@RequestBody String value){
+
+       // String value = searchAuctionRequest.getValue();
+        this.searchValue = value;
+
+        QueryWrapper<Auction> auctionQueryWrapper = new QueryWrapper<>();
+
+        auctionQueryWrapper.like("auctionName","");
+
+        List<Auction> list = auctionService.list(auctionQueryWrapper);
+
+        list = auctionService.searchAuction(list,value);
+
+        Collections.reverse(list);
+
+        List handleList = HandleAuctionList.repeatListWayOne(list);
+
+        return handleList;
+    }
 
 }

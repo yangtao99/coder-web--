@@ -1,5 +1,6 @@
 package com.jlt.jlt_webstu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jlt.jlt_webstu.model.domain.Auction;
 import com.jlt.jlt_webstu.service.AuctionService;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author jinlintao
@@ -37,6 +39,23 @@ public class AuctionServiceImpl extends ServiceImpl<AuctionMapper, Auction>
 
         auctionMapper.insert(auction);
         return auction.getId();
+    }
+
+    @Override
+    public List<Auction> searchAuction(List<Auction> list, String value) {
+
+        QueryWrapper<Auction> auctionQueryWrapper = new QueryWrapper<>();
+
+        auctionQueryWrapper.like("auctionName",value)
+                .or()
+                .like("auctionDescription",value);
+
+
+        List<Auction> auctions = auctionMapper.selectList(auctionQueryWrapper);
+
+        list.addAll(auctions);
+
+        return list;
     }
 }
 

@@ -18,23 +18,19 @@ public class User implements Serializable {
      */
     @TableId(type = IdType.AUTO)
     private Long id;
-
     /**
      *
      */
     @TableLogic
     private Integer isDelete;
-
     /**
      *
      */
     private Date updateTime;
-
     /**
      *
      */
     private Date createTime;
-
     /**
      *
      */
@@ -82,4 +78,23 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", isDelete=" + isDelete +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
+                ", userStatus=" + userStatus +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", gender=" + gender +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", userAccount='" + userAccount + '\'' +
+                ", username='" + username + '\'' +
+                ", userRole=" + userRole +
+                '}';
+    }
 }
